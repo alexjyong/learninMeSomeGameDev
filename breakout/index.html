@@ -20,14 +20,17 @@
 		var dx = 2;
 		var dy = -2;
 		var ballRadius=10;
-
+		var color = "#0095DD"
 
 		function drawBall() {
 			ctx.beginPath();
 			ctx.arc(x,y, ballRadius,0,Math.PI*2);
-			ctx.fillStyle="#0095DD";
+			ctx.fillStyle=color;
 			ctx.fill();
 			ctx.closePath();
+		}
+		function randoColor() {
+			return "#" + Math.floor(Math.random()*16777215).toString(16);
 		}
 
 		function draw() {
@@ -37,12 +40,17 @@
 			y += dy;
 			//if ball hits top or bottom edge
 			//reverse it
+
 			if(x + dx > canvas.width-ballRadius || x + dx < 0) {
     		dx = -dx;
+				//change to a rando color
+				color = randoColor();
 			}
 
 			if(y + dy > canvas.height-ballRadius || y + dy < 0) {
 			    dy = -dy;
+					//change to a rando color
+					color = randoColor();
 			}
 
 		}
