@@ -20,7 +20,7 @@
 		var dx = 2;
 		var dy = -2;
 		var ballRadius=10;
-		
+
 
 		function drawBall() {
 			ctx.beginPath();
@@ -37,9 +37,14 @@
 			y += dy;
 			//if ball hits top or bottom edge
 			//reverse it
-			if (y +dy> canvas.height || y + dy <0){
-				dy = -dy;
+			if(x + dx > canvas.width-ballRadius || x + dx < 0) {
+    		dx = -dx;
 			}
+
+			if(y + dy > canvas.height-ballRadius || y + dy < 0) {
+			    dy = -dy;
+			}
+
 		}
 		setInterval(draw, 10);
 	</script>
