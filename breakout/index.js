@@ -7,6 +7,8 @@ var dy = -2;
 var ballRadius=10;
 var color = "#0095DD"
 
+var lives=3;
+
 //brick-y brick info
 var brickRowCount =5;
 var brickColumnCount=5;
@@ -25,8 +27,8 @@ for(var c=0; c<brickColumnCount; c++) {
     bricks[c] = [];
     for(var r=0; r<brickRowCount; r++) {
         bricks[c][r] = { x: 0, y: 0, status:1, color: randoColor() };
-    }
-}
+    }//end for
+}//end for
 
 document.addEventListener("mousemove",mouseMoveHandler,false);
 function mouseMoveHandler(e){
@@ -34,7 +36,7 @@ function mouseMoveHandler(e){
   if(relativeX>0 && relativeX<canvas.width){
     paddleX=relativeX-paddleWidth/2;
   }
-}
+}//end mousemovehandler
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
@@ -54,7 +56,7 @@ function keyDownHandler(e){
   else if(e.key == "Left" || e.key == "ArrowLeft"){
     leftPressed = true;
   }
-}
+}//end keyDownHandler
 
 function keyUpHandler(e){
   if(e.key == "Right" || e.key == "ArrowRight"){
@@ -63,7 +65,7 @@ function keyUpHandler(e){
   else if(e.key == "Left" || e.key == "ArrowLeft"){
     leftPressed = false;
   }
-}
+}//end keyUpHandler
 
 function collisionDetection(){
   for(var c=0; c<brickColumnCount; c++){
@@ -78,19 +80,25 @@ function collisionDetection(){
           if (score == brickRowCount*brickColumnCount){
             alert("A WINNER IS YOU!");
             document.location.reload();
-            clearInterval(interval);//needed for chrome to end game;
+            //clearInterval(interval);//needed for chrome to end game;
           }
         }
       }
     }
   }
-}
+}//end collisionDetection
 
 function drawScore(){
   ctx.font="16px Arial";
   ctx.fillStyle="#0095DD";
   ctx.fillText("Score: "+ score,8,20);
-}
+}//end drawScore
+
+function drawLives(){
+  ctx.font ="16px Arial";
+  ctx.fillStyle="#0095DD";
+  ctx.fillText("Lives: "+lives, canvas.width-65,20);
+}//end drawlives
 
 
 function drawBall() {
@@ -100,7 +108,7 @@ function drawBall() {
   ctx.fillStyle=color;
   ctx.fill();
   ctx.closePath();
-}
+}//end drawBall
 
 
 function drawPaddle() {
@@ -109,7 +117,7 @@ function drawPaddle() {
   ctx.fillStyle="#0095DD";
   ctx.fill();
   ctx.closePath();
-}
+}//end drawPaddle
 
 function drawBricks() {
   for(var c=0; c<brickColumnCount; c++){
@@ -128,18 +136,19 @@ function drawBricks() {
 
     }
   }
-}
+}//end drawBricks
 
 
 function randoColor() {
   return "#" + Math.floor(Math.random()*16777215).toString(16);
-}
+}//end randoColor
 
 function draw() {
   ctx.clearRect(0,0,canvas.width,canvas.height);
   drawBall();
   drawPaddle();
   drawScore();
+  drawLives();
   collisionDetection();
   drawBricks();
   x += dx;
@@ -164,11 +173,22 @@ function draw() {
       color = randoColor();
       dy = -dy;
     }
-    //nah we didn't you dead brah
+    //nah we didn't you lose a live brah. or you ded.
     else {
-      alert("GAME OVER");
-      document.location.reload();
-      clearInterval(interval);//needed for chrome to end game
+      lives--;
+      if(!lives){
+        alert("GAME OVER");
+        document.location.reload();
+        //clearInterval(interval);//needed for chrome to end game
+      }
+      else{
+        x=canvas.width/2;
+        y=canvas.height-30;
+        dx=2;
+        dy=-2;
+        paddleX=(canvas.width-paddleWidth)/2;
+      }
+
     }
 
   }
@@ -188,6 +208,6 @@ function draw() {
     }
   }
 
-}
+}//end draw
 
-var interval = setInterval(draw, 10);
+draw()
