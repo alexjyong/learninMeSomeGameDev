@@ -207,7 +207,7 @@ function draw() {
       paddleX =0;
     }
   }
-
+  requestAnimationFrame(draw);
 }//end draw
 
 draw()
