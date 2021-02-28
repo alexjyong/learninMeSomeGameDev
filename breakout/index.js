@@ -17,6 +17,9 @@ var brickHeight=20;
 var brickPadding=10;
 var brickOffsetTop=30;
 var brickOffsetLeft=30;
+var mySound = new sound("bell_ding1.wav");
+var wallSound = new sound("");
+var gameOver = new sound("gameOver.mp3")
 
 //le score
 var score =0;
@@ -29,6 +32,7 @@ for(var c=0; c<brickColumnCount; c++) {
         bricks[c][r] = { x: 0, y: 0, status:1, color: randoColor() };
     }//end for
 }//end for
+
 
 document.addEventListener("mousemove",mouseMoveHandler,false);
 function mouseMoveHandler(e){
@@ -67,6 +71,7 @@ function keyUpHandler(e){
   }
 }//end keyUpHandler
 
+//handles collision with le bricks
 function collisionDetection(){
   for(var c=0; c<brickColumnCount; c++){
     for(var r=0; r<brickRowCount; r++){
@@ -77,6 +82,7 @@ function collisionDetection(){
           dy = -dy;
           b.status=0;
           score++;
+          mySound.play();
           if (score == brickRowCount*brickColumnCount){
             alert("A WINNER IS YOU!");
             document.location.reload();
@@ -118,6 +124,21 @@ function drawPaddle() {
   ctx.fill();
   ctx.closePath();
 }//end drawPaddle
+
+function sound(src){
+  this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+        this.sound.play();
+    }
+    this.stop = function(){
+        this.sound.pause();
+    }
+}
 
 function drawBricks() {
   for(var c=0; c<brickColumnCount; c++){
