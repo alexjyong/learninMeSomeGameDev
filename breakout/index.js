@@ -198,7 +198,9 @@ function draw() {
     else {
       lives--;
       if(!lives){
+        gameOver.play();
         alert("GAME OVER");
+        gameOver.play();
         document.location.reload();
         //clearInterval(interval);//needed for chrome to end game
       }
