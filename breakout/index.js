@@ -18,7 +18,7 @@ var brickPadding=10;
 var brickOffsetTop=30;
 var brickOffsetLeft=30;
 var mySound = new sound("bell_ding1.wav");
-var wallSound = new sound("");
+var wallSound = new sound("wallBounce.wav");
 var gameOver = new sound("gameOver.mp3")
 
 //le score
@@ -181,10 +181,12 @@ function draw() {
     dx = -dx;
     //change to a rando color
     color = randoColor();
+    wallSound.play();
   }
 
   if(y + dy < ballRadius) {
       dy = -dy;
+      wallSound.play();
   }
   else if (y + dy > canvas.height-ballRadius){
 
