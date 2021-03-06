@@ -2,6 +2,7 @@ var game = new Phaser.Game(480,320, Phaser.CANVAS, null,{
   preload:preload, create: create, update:update
 });
 var ball;
+
 function preload(){
   game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 
@@ -15,6 +16,7 @@ function create(){
   ball = game.add.sprite(50, 50, 'ball');
 }
 
-
-
-function update(){}
+function update(){
+  ball.x += 1;
+  ball.y += 1;
+}
