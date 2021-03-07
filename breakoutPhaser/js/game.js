@@ -37,6 +37,7 @@ function create(){
     alert('Game over!');
     location.reload();
   }, this);
+  
 }
 
 function update(){
