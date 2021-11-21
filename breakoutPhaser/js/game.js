@@ -38,7 +38,6 @@ function create(){
   ball.anchor.set(0.5);
   game.physics.enable(ball, Phaser.Physics.ARCADE);
   ball.body.collideWorldBounds = true;
-  //ball.body.velocity.set(150, -150);
   ball.body.bounce.set(1);
   paddle = game.add.sprite(game.world.width*0.5, game.world.height-5, 'paddle');
   paddle.anchor.set(0.5,1);
@@ -128,6 +127,7 @@ function update(){
 
 function ballHitPaddle(ball,paddle){
   ball.animations.play('wobble');
+  ball.body.velocity.x = -1*5*(padddle.x-ball.x);
 }
 
 function ballHitBrick(ball, brick) {
